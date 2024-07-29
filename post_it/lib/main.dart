@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Post-It',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
         appBarTheme: AppBarTheme(
           iconTheme: const IconThemeData(
@@ -26,6 +25,10 @@ class MyApp extends StatelessWidget {
             fontSize: 22,
           ),
         ),
+        primaryColor: Colors.purple,
+        colorScheme: Theme.of(context).colorScheme.copyWith(
+              primary: Colors.purple,
+            ),
       ),
       home: const HomeScreen(),
       routes: {
