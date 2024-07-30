@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: const Center(
-        child: Text('Tela que será apresentado os Post-its'),
+        child: Text('Post Its'),
       ),
     );
   }

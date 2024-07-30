@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:post_it/screens/new_post_it/components/row_button_send_cancel.dart';
+import '../components/IconData.dart';
 
 class FormFieldWidget extends StatefulWidget {
   FormFieldWidget({
@@ -49,100 +51,68 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
           ),
           const SizedBox(height: 25),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(
-                Icons.calendar_month,
-                size: 29,
-                color: Colors.grey.shade800,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 25,
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () async {
-                            DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              firstDate: DateTime(2024),
-                              lastDate: DateTime(2050),
-                            );
-                            if (pickedDate != null) {
-                              setState(() {
-                                _selectedDate = pickedDate;
-                                _dateController.text =
-                                    "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
-                              });
-                            }
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 5,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  _selectedDate != null
-                                      ? "Data de Prazo: ${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}"
-                                      : 'Cliquei para selecionar a Data',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              IconSelectData(),
+              DatePicker(context),
             ],
           ),
           const Expanded(child: SizedBox()),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+          RowButtonSendCancel(selectedDate: _selectedDate, formKey: _formKey),
+        ],
+      ),
+    );
+  }
+
+  Padding DatePicker(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 25,
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
             children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
+              GestureDetector(
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    firstDate: DateTime(2024),
+                    lastDate: DateTime(2050),
+                  );
+                  if (pickedDate != null) {
+                    setState(() {
+                      _selectedDate = pickedDate;
+                      _dateController.text =
+                          "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+                    });
+                  }
                 },
-                child: const Text('Cancelar'),
-              ),
-              const Expanded(child: SizedBox()),
-              IconButton(
-                onPressed: () {
-                  if (_selectedDate == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Selecione uma Data Valida'),
-                        backgroundColor: Colors.red,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        _selectedDate != null
+                            ? "${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}"
+                            : 'Selecionar a Data',
                       ),
-                    );
-                    return;
-                  }
-                  if (_formKey.currentState!.validate() &&
-                      _selectedDate != null) {
-                    Navigator.of(context).pop();
-                  }
-                },
-                icon: const Icon(
-                  Icons.send,
-                  color: Colors.purple,
+                    ],
+                  ),
                 ),
-              )
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
