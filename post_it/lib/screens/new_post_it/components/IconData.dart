@@ -17,7 +17,9 @@ class IconSelectData extends StatelessWidget {
         const SizedBox(width: 8),
         const Text(
           'Data de prazo:',
-          style: TextStyle(color: Color.fromARGB(255, 124, 124, 124)),
+          style: TextStyle(
+            color: Color.fromARGB(255, 124, 124, 124),
+          ),
         ),
       ],
     );

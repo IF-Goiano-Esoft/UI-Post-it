@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomeScreen(),
       routes: {
-        AppRoutes.newPostIt: (ctx) => const NewPostItScreen(),
+        AppRoutes.NEW_POST_IT: (ctx) => const NewPostItScreen(),
       },
       debugShowCheckedModeBanner: false,
     );

@@ -15,14 +15,28 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
   final _formKey = GlobalKey<FormState>();
   DateTime? _selectedDate;
   final _dateController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final Map<String, Color> listColor = {
+    'Amarelo': const Color(0xffFFEB3B),
+    'Verde': const Color(0xff69F0AE),
+    'Azul': const Color(0xff448AFF),
+    'Vermelho': const Color(0xffFF5252),
+    'Rosa': const Color(0xffFE9FBB),
+  };
+  String selectedColor = 'Amarelo';
 
   String? _validarTitulo(String titulo) {
-    if (titulo.length < 4) return 'O titulo necessita pelo menos 5 letras';
+    if (titulo.length < 4) return 'O titulo precisa ter mais que 5 letras';
+    if (titulo.length >= 16)
+      return 'O titulo não pode conter mais que 15 letras';
     return null;
   }
 
   String? _validarDescricao(String titulo) {
     if (titulo.length < 4) return 'A descrição necessita pelo menos 5 letras';
+    if (titulo.length > 50)
+      return 'A descrição não pode ter mais que 50 letras';
     return null;
   }
 
@@ -32,7 +46,9 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
       key: _formKey,
       child: Column(
         children: [
+          // Text Field Titulo
           TextFormField(
+            controller: _titleController,
             validator: (value) => _validarTitulo(value!),
             decoration: const InputDecoration(
               icon: Icon(Icons.title),
@@ -41,7 +57,10 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
             ),
           ),
           const SizedBox(height: 25),
+
+          // Text Field Description
           TextFormField(
+            controller: _descriptionController,
             validator: (value) => _validarDescricao(value!),
             decoration: const InputDecoration(
               icon: Icon(Icons.question_answer),
@@ -50,15 +69,74 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
             ),
           ),
           const SizedBox(height: 25),
+
+          // Selecionar Data
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconSelectData(),
+              const IconSelectData(),
               DatePicker(context),
             ],
           ),
+          const SizedBox(height: 25),
+
+          // Dropdown escolha de Cores
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.color_lens_outlined,
+                    size: 29,
+                    color: Colors.grey.shade800,
+                  ),
+                  const SizedBox(width: 8),
+                  const Text(
+                    'Escolha a cor do Post It: ',
+                    style: TextStyle(color: Color.fromARGB(255, 109, 109, 109)),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownButton(
+                  value: selectedColor,
+                  elevation: 16,
+                  underline: Container(
+                    height: 2,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  items:
+                      listColor.keys.map<DropdownMenuItem<String>>((nameColor) {
+                    return DropdownMenuItem(
+                      value: nameColor,
+                      child: Text(nameColor),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedColor = value!;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+
           const Expanded(child: SizedBox()),
-          RowButtonSendCancel(selectedDate: _selectedDate, formKey: _formKey),
+
+          // Botões para enviar e cancelar
+          RowButtonSendCancel(
+            selectedDate: _selectedDate,
+            selectedColor: listColor[selectedColor],
+            formKey: _formKey,
+            titleController: _titleController,
+            descriptionController: _descriptionController,
+            onPostItAdded: (postIt) {
+              Navigator.of(context).pop(postIt);
+            },
+          ),
         ],
       ),
     );
