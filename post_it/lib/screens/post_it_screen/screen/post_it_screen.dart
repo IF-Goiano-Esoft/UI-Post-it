@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:post_it/data/post_it_list.dart';
 import 'package:post_it/models/post_it.dart';
-import 'package:post_it/screens/home_screen/components/card_post_it.dart';
+import 'package:post_it/screens/post_it_screen/components/card_post_it.dart';
 import 'package:post_it/utils/app_routes.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class PostItScreen extends StatefulWidget {
+  const PostItScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<PostItScreen> createState() => _PostItScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _PostItScreenState extends State<PostItScreen> {
   final List<PostIt> _postIts = List.from(PostItList.postIts);
 
   void _addPostIt(PostIt postIt) {

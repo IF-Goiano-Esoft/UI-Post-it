@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:post_it/screens/home_screen/screen/home_screen.dart';
+import 'package:post_it/screens/auth_screen/screen/auth_screen.dart';
+import 'package:post_it/screens/post_it_screen/screen/post_it_screen.dart';
 import 'package:post_it/screens/new_post_it/screen/new_post_it_screen.dart';
 import 'package:post_it/utils/app_routes.dart';
 
@@ -30,8 +31,9 @@ class MyApp extends StatelessWidget {
               primary: Colors.purple,
             ),
       ),
-      home: const HomeScreen(),
       routes: {
+        AppRoutes.HOME: (ctx) => const AuthScreen(),
+        AppRoutes.POST_IT: (ctx) => const PostItScreen(),
         AppRoutes.NEW_POST_IT: (ctx) => const NewPostItScreen(),
       },
       debugShowCheckedModeBanner: false,
