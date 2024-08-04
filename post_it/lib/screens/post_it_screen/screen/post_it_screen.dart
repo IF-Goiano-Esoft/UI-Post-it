@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:post_it/data/post_it_list.dart';
-import 'package:post_it/models/post_it.dart';
+import 'package:post_it/core/models/post_it.dart';
 import 'package:post_it/screens/post_it_screen/components/card_post_it.dart';
+import 'package:post_it/screens/post_it_screen/components/main_drawer.dart';
 import 'package:post_it/utils/app_routes.dart';
 
 class PostItScreen extends StatefulWidget {
@@ -29,6 +30,7 @@ class _PostItScreenState extends State<PostItScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MainDrawer(),
       appBar: AppBar(
         title: const Text('Post-It'),
         actions: [

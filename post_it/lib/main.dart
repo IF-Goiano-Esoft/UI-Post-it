@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:post_it/screens/auth_or_app_screen/auth_or_app_screen.dart';
 import 'package:post_it/screens/auth_screen/screen/auth_screen.dart';
 import 'package:post_it/screens/post_it_screen/screen/post_it_screen.dart';
-import 'package:post_it/screens/new_post_it/screen/new_post_it_screen.dart';
+import 'package:post_it/screens/new_post_it_screen/screen/new_post_it_screen.dart';
 import 'package:post_it/utils/app_routes.dart';
 
 void main() {
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
             ),
       ),
       routes: {
-        AppRoutes.HOME: (ctx) => const AuthScreen(),
+        AppRoutes.HOME: (ctx) => const AuthOrAppScreen(),
+        AppRoutes.AUTH: (ctx) => const AuthScreen(),
         AppRoutes.POST_IT: (ctx) => const PostItScreen(),
         AppRoutes.NEW_POST_IT: (ctx) => const NewPostItScreen(),
       },

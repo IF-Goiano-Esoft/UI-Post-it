@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:post_it/screens/new_post_it/components/form_field_widget.dart';
+import 'package:post_it/screens/new_post_it_screen/components/form_field_widget.dart';
 
 class NewPostItScreen extends StatefulWidget {
   const NewPostItScreen({super.key});

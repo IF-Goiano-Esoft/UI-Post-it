@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:post_it/screens/new_post_it/components/row_button_send_cancel.dart';
-import '../components/IconData.dart';
+import 'package:post_it/screens/new_post_it_screen/components/row_button_send_cancel.dart';
+import 'IconData.dart';
 
 class FormFieldWidget extends StatefulWidget {
   FormFieldWidget({

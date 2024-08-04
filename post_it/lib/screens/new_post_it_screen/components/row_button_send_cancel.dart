@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:post_it/data/post_it_list.dart';
-import 'package:post_it/models/post_it.dart';
+import 'package:post_it/core/models/post_it.dart';
 
 class RowButtonSendCancel extends StatelessWidget {
   final DateTime? _selectedDate;

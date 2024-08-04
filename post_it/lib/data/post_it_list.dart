@@ -1,4 +1,4 @@
-import 'package:post_it/models/post_it.dart';
+import 'package:post_it/core/models/post_it.dart';
 
 class PostItList {
   static final List<PostIt> _postIts = [];

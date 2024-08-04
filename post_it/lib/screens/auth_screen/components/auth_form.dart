@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:post_it/models/auth_form_data.dart';
+import 'package:post_it/core/models/auth_form_data.dart';
 
 class AuthForm extends StatefulWidget {
   final void Function(AuthFormData) onSubmit;
