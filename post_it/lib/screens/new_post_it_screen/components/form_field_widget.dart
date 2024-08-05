@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:post_it/core/services/auth/auth_service.dart';
 import 'package:post_it/screens/new_post_it_screen/components/row_button_send_cancel.dart';
 import 'IconData.dart';
 
@@ -136,6 +137,7 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
             onPostItAdded: (postIt) {
               Navigator.of(context).pop(postIt);
             },
+            user: AuthService().currentUser!,
           ),
         ],
       ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:post_it/core/models/post_it_user.dart';
+import 'package:post_it/core/services/post_it/post_it_service.dart';
 import 'package:post_it/data/post_it_list.dart';
 import 'package:post_it/core/models/post_it.dart';
 
@@ -9,6 +11,7 @@ class RowButtonSendCancel extends StatelessWidget {
   final TextEditingController _titleController;
   final TextEditingController _descriptionController;
   final Function(PostIt) onPostItAdded;
+  final PostItUser user;
 
   RowButtonSendCancel({
     super.key,
@@ -18,6 +21,7 @@ class RowButtonSendCancel extends StatelessWidget {
     required TextEditingController titleController,
     required TextEditingController descriptionController,
     required this.onPostItAdded,
+    required this.user,
   })  : _selectedDate = selectedDate,
         _selectedColor = selectedColor,
         _formKey = formKey,
@@ -37,7 +41,7 @@ class RowButtonSendCancel extends StatelessWidget {
         ),
         const Expanded(child: SizedBox()),
         IconButton(
-          onPressed: () {
+          onPressed: () async {
             if (_selectedDate == null) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
@@ -48,12 +52,14 @@ class RowButtonSendCancel extends StatelessWidget {
               return;
             }
             if (_formKey.currentState!.validate()) {
-              PostIt newPostIt = PostIt(
-                title: _titleController.text,
-                description: _descriptionController.text,
-                date: _selectedDate,
-                color: _selectedColor!,
+              PostIt newPostIt = await PostItService().save(
+                _titleController.text,
+                _descriptionController.text,
+                _selectedDate,
+                _selectedColor!,
+                user,
               );
+              
               PostItList.addPostIt(newPostIt);
               onPostItAdded(newPostIt);
             }

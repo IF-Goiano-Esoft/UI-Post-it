@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:post_it/core/models/auth_form_data.dart';
-import 'package:post_it/core/services/auth/auth_mock_service.dart';
+import 'package:post_it/core/services/auth/auth_service.dart';
 import 'package:post_it/screens/auth_screen/components/auth_form.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -17,13 +17,13 @@ class _AuthScreenState extends State<AuthScreen> {
     try {
       if (formData.isLogin) {
         // Login
-        await AuthMockService().login(
+        await AuthService().login(
           formData.email,
           formData.password,
         );
       } else {
         // Cadastro
-        AuthMockService().signup(
+        AuthService().signup(
           formData.name,
           formData.email,
           formData.password,
@@ -51,10 +51,10 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
           if (_isLoading)
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromRGBO(0, 0, 0, 0.5),
               ),
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(),
               ),
             ),

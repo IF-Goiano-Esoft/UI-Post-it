@@ -1,4 +1,5 @@
 import 'package:post_it/core/models/post_it_user.dart';
+import 'package:post_it/core/services/auth/auth_mock_service.dart';
 
 abstract class AuthService {
   PostItUser? get currentUser;
@@ -17,4 +18,8 @@ abstract class AuthService {
   );
 
   Future<void> logout();
+
+  factory AuthService() {
+    return AuthMockService();
+  }
 }

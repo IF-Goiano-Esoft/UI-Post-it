@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:post_it/data/post_it_list.dart';
+import 'package:post_it/core/services/auth/auth_service.dart';
+import 'package:post_it/core/services/post_it/post_it_service.dart';
 import 'package:post_it/core/models/post_it.dart';
 import 'package:post_it/screens/post_it_screen/components/card_post_it.dart';
 import 'package:post_it/screens/post_it_screen/components/main_drawer.dart';
@@ -13,18 +14,11 @@ class PostItScreen extends StatefulWidget {
 }
 
 class _PostItScreenState extends State<PostItScreen> {
-  final List<PostIt> _postIts = List.from(PostItList.postIts);
-
-  void _addPostIt(PostIt postIt) {
-    setState(() {
-      _postIts.add(postIt);
-    });
-  }
+  final Stream<List<PostIt>> _postIts =
+      PostItService().postItsByUserStream(AuthService().currentUser!);
 
   void _deletePostIt(PostIt post) {
-    setState(() {
-      _postIts.remove(post);
-    });
+    PostItService().remove(post);
   }
 
   @override
@@ -36,31 +30,30 @@ class _PostItScreenState extends State<PostItScreen> {
         actions: [
           IconButton(
             onPressed: () async {
-              final result =
-                  await Navigator.of(context).pushNamed(AppRoutes.NEW_POST_IT);
-              if (result != null && result is PostIt) {
-                _addPostIt(result);
-              }
+              Navigator.of(context).pushNamed(AppRoutes.NEW_POST_IT);
             },
             icon: const Icon(Icons.add),
           ),
         ],
       ),
-      body: _postIts.isEmpty
-          ? Center(
+      body: StreamBuilder(
+        stream: _postIts,
+        builder: (ctx, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(
               child: TextButton.icon(
                 onPressed: () async {
-                  final result = await Navigator.of(context)
-                      .pushNamed(AppRoutes.NEW_POST_IT);
-                  if (result != null && result is PostIt) {
-                    _addPostIt(result);
-                  }
+                  Navigator.of(context).pushNamed(AppRoutes.NEW_POST_IT);
                 },
                 label: const Text('Adicionar Novo Post It'),
                 icon: const Icon(Icons.add),
               ),
-            )
-          : Center(
+            );
+          } else {
+            List<PostIt> postIts = snapshot.data!;
+            return Center(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
@@ -68,15 +61,18 @@ class _PostItScreenState extends State<PostItScreen> {
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20,
                 ),
-                itemCount: _postIts.length,
+                itemCount: postIts.length,
                 itemBuilder: (ctx, index) {
                   return CardPostIt(
-                    _postIts[index],
-                    () => _deletePostIt(_postIts[index]),
+                    postIts[index],
+                    () => _deletePostIt(postIts[index]),
                   );
                 },
               ),
-            ),
+            );
+          }
+        },
+      ),
     );
   }
 }
