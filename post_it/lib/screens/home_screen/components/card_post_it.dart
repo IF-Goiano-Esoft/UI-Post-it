@@ -4,9 +4,11 @@ import 'package:post_it/models/post_it.dart';
 // ignore: must_be_immutable
 class CardPostIt extends StatelessWidget {
   PostIt post;
+  final Function onDelete;
 
   CardPostIt(
-    this.post, {
+    this.post,
+    this.onDelete, {
     super.key,
   });
 
@@ -36,7 +38,15 @@ class CardPostIt extends StatelessWidget {
                 ),
                 Text(
                   "${post.date.day}/${post.date.month}/${post.date.year}",
-                  style: const TextStyle(color: Color.fromARGB(255, 90, 90, 90)),
+                  style:
+                      const TextStyle(color: Color.fromARGB(255, 90, 90, 90)),
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Colors.black,
+                  ),
+                  onPressed: () => onDelete(),
                 ),
               ],
             ),

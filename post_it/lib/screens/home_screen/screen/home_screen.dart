@@ -20,6 +20,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _deletePostIt(PostIt post) {
+    setState(() {
+      _postIts.remove(post);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,12 +63,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
                   childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 25,
+                  crossAxisSpacing: 20,
                   mainAxisSpacing: 20,
                 ),
                 itemCount: _postIts.length,
                 itemBuilder: (ctx, index) {
-                  return CardPostIt(_postIts[index]);
+                  return CardPostIt(
+                    _postIts[index],
+                    () => _deletePostIt(_postIts[index]),
+                  );
                 },
               ),
             ),
