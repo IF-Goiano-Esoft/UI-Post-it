@@ -10,7 +10,6 @@ class PostIt {
   final DateTime date;
   final Color color;
   final PostItUser user;
-  
 
   PostIt({
     String? id,
@@ -18,6 +17,6 @@ class PostIt {
     required this.description,
     required this.date,
     required this.color,
-    this.user = const PostItUser(id: '01', name: 'Arthur', email: 'a@a.com'),
+    required this.user,
   }) : id = id ?? Random().nextDouble().toString();
 }

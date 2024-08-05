@@ -58,8 +58,8 @@ class _PostItScreenState extends State<PostItScreen> {
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
                   childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
+                  crossAxisSpacing: 0,
+                  mainAxisSpacing: 5,
                 ),
                 itemCount: postIts.length,
                 itemBuilder: (ctx, index) {
