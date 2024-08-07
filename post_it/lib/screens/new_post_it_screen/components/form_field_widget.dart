@@ -4,7 +4,7 @@ import 'package:post_it/screens/new_post_it_screen/components/row_button_send_ca
 import 'IconData.dart';
 
 class FormFieldWidget extends StatefulWidget {
-  FormFieldWidget({
+  const FormFieldWidget({
     super.key,
   });
 
@@ -29,15 +29,17 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
 
   String? _validarTitulo(String titulo) {
     if (titulo.length < 4) return 'O titulo precisa ter mais que 5 letras';
-    if (titulo.length >= 16)
+    if (titulo.length >= 16) {
       return 'O titulo não pode conter mais que 15 letras';
+    }
     return null;
   }
 
   String? _validarDescricao(String titulo) {
     if (titulo.length < 4) return 'A descrição necessita pelo menos 5 letras';
-    if (titulo.length > 50)
+    if (titulo.length > 50) {
       return 'A descrição não pode ter mais que 50 letras';
+    }
     return null;
   }
 
@@ -72,12 +74,17 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
           const SizedBox(height: 25),
 
           // Selecionar Data
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const IconSelectData(),
-              DatePicker(context),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 150,
+                  child: IconSelectData(),
+                ),
+                DatePicker(context),
+              ],
+            ),
           ),
           const SizedBox(height: 25),
 
