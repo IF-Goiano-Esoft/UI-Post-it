@@ -15,8 +15,8 @@ class _NewPostItScreenState extends State<NewPostItScreen> {
       appBar: AppBar(
         title: const Text('Novo Post-It'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25.0),
+      body: const Padding(
+        padding: EdgeInsets.all(20.0),
         child: FormFieldWidget(),
       ),
     );

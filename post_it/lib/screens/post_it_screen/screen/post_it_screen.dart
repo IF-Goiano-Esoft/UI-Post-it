@@ -56,8 +56,8 @@ class _PostItScreenState extends State<PostItScreen> {
             return Center(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 3 / 2,
+                  maxCrossAxisExtent: 215,
+                  childAspectRatio: 7 / 5,
                   crossAxisSpacing: 0,
                   mainAxisSpacing: 5,
                 ),
