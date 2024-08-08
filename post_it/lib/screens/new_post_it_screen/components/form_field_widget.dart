@@ -74,17 +74,14 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
           const SizedBox(height: 25),
 
           // Selecionar Data
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                const SizedBox(
-                  width: 150,
-                  child: IconSelectData(),
-                ),
-                DatePicker(context),
-              ],
-            ),
+          Row(
+            children: [
+              const SizedBox(
+                width: 150,
+                child: IconSelectData(),
+              ),
+              DatePicker(context),
+            ],
           ),
           const SizedBox(height: 25),
 
@@ -154,7 +151,7 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
   Padding DatePicker(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 25,
+        horizontal: 10,
       ),
       child: Container(
         decoration: BoxDecoration(
