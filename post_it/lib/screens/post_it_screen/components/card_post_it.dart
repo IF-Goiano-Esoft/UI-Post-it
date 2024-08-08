@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:post_it/models/post_it.dart';
+import 'package:post_it/core/models/post_it.dart';
 
 // ignore: must_be_immutable
 class CardPostIt extends StatelessWidget {
