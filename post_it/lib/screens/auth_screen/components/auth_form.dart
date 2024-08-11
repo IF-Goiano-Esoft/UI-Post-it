@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:post_it/core/models/auth_form_data.dart';
+import 'package:post_it/screens/auth_screen/validators/email_validator.dart';
+import 'package:post_it/screens/auth_screen/validators/name_validator.dart';
+import 'package:post_it/screens/auth_screen/validators/password_validator.dart';
 
 class AuthForm extends StatefulWidget {
   final void Function(AuthFormData) onSubmit;
@@ -48,11 +51,7 @@ class _AuthFormState extends State<AuthForm> {
                   onChanged: (name) => _authData.name = name,
                   decoration: const InputDecoration(labelText: 'Nome'),
                   validator: (_name) {
-                    final name = _name ?? '';
-                    if (name.trim().length < 5) {
-                      return 'O nome precisa conter pelo menos 5 letras';
-                    }
-                    return null;
+                    return nameValidator(_name);
                   },
                 ),
               TextFormField(
@@ -61,11 +60,7 @@ class _AuthFormState extends State<AuthForm> {
                 onChanged: (email) => _authData.email = email,
                 decoration: const InputDecoration(labelText: 'Email'),
                 validator: (_email) {
-                  final email = _email ?? '';
-                  if (!email.contains('@')) {
-                    return 'O email digitado não é valido';
-                  }
-                  return null;
+                  return emailValidator(_email);
                 },
               ),
               TextFormField(
@@ -73,11 +68,7 @@ class _AuthFormState extends State<AuthForm> {
                 initialValue: _authData.password,
                 onChanged: (password) => _authData.password = password,
                 validator: (_password) {
-                  final password = _password ?? '';
-                  if (password.length < 6) {
-                    return 'A senha precisa ter pelo menos 6 caracteres';
-                  }
-                  return null;
+                  return passwordValidator(_password);
                 },
                 obscureText: _isHiddenPassword,
                 decoration: InputDecoration(

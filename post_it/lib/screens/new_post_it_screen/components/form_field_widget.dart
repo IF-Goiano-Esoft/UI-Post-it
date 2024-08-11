@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:post_it/core/services/auth/auth_service.dart';
 import 'package:post_it/screens/new_post_it_screen/components/row_button_send_cancel.dart';
+import 'package:post_it/screens/new_post_it_screen/validators/description_validator.dart';
+import 'package:post_it/screens/new_post_it_screen/validators/title_validator.dart';
 import 'IconData.dart';
 
 class FormFieldWidget extends StatefulWidget {
@@ -27,22 +29,6 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
   };
   String selectedColor = 'Amarelo';
 
-  String? _validarTitulo(String titulo) {
-    if (titulo.length < 4) return 'O titulo precisa ter mais que 5 letras';
-    if (titulo.length >= 16) {
-      return 'O titulo não pode conter mais que 15 letras';
-    }
-    return null;
-  }
-
-  String? _validarDescricao(String titulo) {
-    if (titulo.length < 4) return 'A descrição necessita pelo menos 5 letras';
-    if (titulo.length > 50) {
-      return 'A descrição não pode ter mais que 50 letras';
-    }
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -52,7 +38,7 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
           // Text Field Titulo
           TextFormField(
             controller: _titleController,
-            validator: (value) => _validarTitulo(value!),
+            validator: (value) => titleValidator(value),
             decoration: const InputDecoration(
               icon: Icon(Icons.title),
               label: Text('Titulo'),
@@ -64,7 +50,7 @@ class _FormFieldWidgetState extends State<FormFieldWidget> {
           // Text Field Description
           TextFormField(
             controller: _descriptionController,
-            validator: (value) => _validarDescricao(value!),
+            validator: (value) => descriptionValidator(value),
             decoration: const InputDecoration(
               icon: Icon(Icons.question_answer),
               label: Text('Descrição'),
