@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 
 // Importa as funções que você deseja testar
-import '/Users/pedronaves/Desktop/UI-Post-it/post_it/lib/screens/auth_screen/validators/email_validator.dart';
-import '/Users/pedronaves/Desktop/UI-Post-it/post_it/lib/screens/auth_screen/validators/name_validator.dart';
-import '/Users/pedronaves/Desktop/UI-Post-it/post_it/lib/screens/auth_screen/validators/password_validator.dart';
+import 'package:post_it/screens/auth_screen/validators/email_validator.dart';
+import 'package:post_it/screens/auth_screen/validators/name_validator.dart';
+import 'package:post_it/screens/auth_screen/validators/password_validator.dart';
 
 void main() {
   group('Email Validator', () {
