@@ -19,4 +19,27 @@ class PostIt {
     required this.color,
     required this.user,
   }) : id = id ?? Random().nextDouble().toString();
+
+  factory PostIt.fromJson(Map<String, dynamic> json) {
+    return PostIt(
+      id: json['id'],
+      title: json['title'],
+      description: json['description'],
+      date: DateTime.parse(json['date']),
+      color: json['color'],
+      user: PostItUser.fromJson(json['user']), // Supondo que PostItUser também tenha um método fromJson
+    );
+  }
+
+  // Método toJson se precisar converter o objeto de volta para JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'date': date.toIso8601String(),
+      'color': color,
+      'user': user.toJson(),
+    };
+  }
 }
